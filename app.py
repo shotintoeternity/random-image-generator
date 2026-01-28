@@ -3,7 +3,10 @@ import streamlit as st
 from google import genai
 from google.genai import types
 
-API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+try:
+    API_KEY = st.secrets["GOOGLE_API_KEY"]
+except (KeyError, FileNotFoundError):
+    API_KEY = os.environ.get("GOOGLE_API_KEY", "")
 
 PROMPT = (
     "You are a random photograph generator. First, think of a random category of photography — "
